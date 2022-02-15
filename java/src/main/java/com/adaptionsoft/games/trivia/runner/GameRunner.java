@@ -14,14 +14,14 @@ public class GameRunner {
 
 
 		File outputFile =
-				new File( "snapshots\\1\\output.txt");
+				new File( "src/test/java/com/adaptionsoft/games/trivia/snapshots/2/output.txt");
 		outputFile.createNewFile();
 
 		PrintStream out = new PrintStream(outputFile);
 		System.setOut(out);
 
 		File csvFile =
-				new File( "snapshots\\1\\csv.txt");
+				new File( "src/test/java/com/adaptionsoft/games/trivia/snapshots/2/csv.txt");
 		outputFile.createNewFile();
 		PrintWriter csvOut = new PrintWriter(csvFile);
 
@@ -34,17 +34,18 @@ public class GameRunner {
 
 		Random rand = new Random();
 
-
 		do {
 			var roll = rand.nextInt(5) + 1;
 			aGame.roll(roll);
-			
-			if (rand.nextInt(9) == 7) {
-				notAWinner = aGame.wrongAnswer();
-			} else {
+
+			boolean isCorrect = rand.nextInt(6) != 1;
+			if (isCorrect) {
 				notAWinner = aGame.wasCorrectlyAnswered();
+			} else {
+				notAWinner = aGame.wrongAnswer();
 			}
-			csvOut.println(roll + "," + notAWinner);
+
+			csvOut.println(roll + "," + isCorrect);
 		} while (notAWinner);
 
 		csvOut.close();
