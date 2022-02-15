@@ -1,30 +1,16 @@
 
 package com.adaptionsoft.games.trivia.runner;
-import java.io.*;
-import java.util.Random;
 
 import com.adaptionsoft.games.uglytrivia.Game;
+
+import java.util.Random;
 
 
 public class GameRunner {
 
 	private static boolean notAWinner;
 
-	public static void main(String[] args) throws IOException {
-
-
-		File outputFile =
-				new File( "src/test/java/com/adaptionsoft/games/trivia/snapshots/2/output.txt");
-		outputFile.createNewFile();
-
-		PrintStream out = new PrintStream(outputFile);
-		System.setOut(out);
-
-		File csvFile =
-				new File( "src/test/java/com/adaptionsoft/games/trivia/snapshots/2/csv.txt");
-		outputFile.createNewFile();
-		PrintWriter csvOut = new PrintWriter(csvFile);
-
+	public static void main(String[] args){
 
 		Game aGame = new Game();
 
@@ -44,13 +30,6 @@ public class GameRunner {
 			} else {
 				notAWinner = aGame.wrongAnswer();
 			}
-
-			csvOut.println(roll + "," + isCorrect);
 		} while (notAWinner);
-
-		csvOut.close();
-
-
-		
 	}
 }
