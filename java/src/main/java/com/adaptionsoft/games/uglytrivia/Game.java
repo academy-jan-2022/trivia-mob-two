@@ -5,7 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Game {
-    List<String> players = new ArrayList<>();
+	public static final int MAX_PLACES = 12;
+	List<String> players = new ArrayList<>();
     int[] places = new int[6];
     int[] purses  = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
@@ -65,14 +66,17 @@ public class Game {
 	}
 
 	private void movePlayer(int roll) {
-		places[currentPlayer] = places[currentPlayer] + roll;
-		if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+		places[currentPlayer] = findNextPlace(roll);
 
 		System.out.println(players.get(currentPlayer)
 				+ "'s new location is "
 				+ places[currentPlayer]);
 		System.out.println("The category is " + currentCategory());
 		askQuestion();
+	}
+
+	private int findNextPlace(int roll) {
+		return (places[currentPlayer] + roll) % MAX_PLACES;
 	}
 
 	private void askQuestion() {
