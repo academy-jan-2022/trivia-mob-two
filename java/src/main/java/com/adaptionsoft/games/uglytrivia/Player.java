@@ -5,9 +5,11 @@ public class Player {
     public String name;
     public int purse;
     public int place;
+    public int number;
     public boolean inPenaltyBox;
 
-    public Player(String name) {
+    public Player(String name, int number) {
         this.name = name;
+        this.number = number;
     }
 }

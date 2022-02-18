@@ -11,26 +11,26 @@ public class Game {
     Questions questions;
     List<Player> players;
     Player currentPlayer;
-    int currentPlayerIndex;
     boolean isGettingOutOfPenaltyBox;
 
     public Game() {
-        this.currentPlayerIndex = 0;
         this.questions = new Questions();
         this.players = new ArrayList<>();
     }
 
     public void add(String playerName) {
-        Player newPlayer = new Player(playerName);
+        Player newPlayer = new Player(playerName, players.size() + 1);
         players.add(newPlayer);
 
         System.out.println(
-                Messages.GetPlayerAdded(playerName, players.size())
+                Messages.GetPlayerAdded(playerName, newPlayer.number)
         );
     }
 
     public void roll(int roll) {
-        currentPlayer = players.get(currentPlayerIndex);
+        if (currentPlayer == null)
+            currentPlayer = players.stream().filter(player -> player.number == 1).findFirst().orElseThrow();
+
         System.out.println(
                 Messages.GetPlayerRolled(currentPlayer.name, roll)
         );
@@ -43,7 +43,6 @@ public class Game {
                     questions.ask(currentCategory())
             );
         }
-
     }
 
     private void attemptToGetOut(int roll) {
@@ -128,7 +127,12 @@ public class Game {
     }
 
     private void nextPlayer() {
-        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+        int nextPlayerNumber = (currentPlayer.number) % players.size() + 1;
+        currentPlayer = players
+                .stream()
+                .filter(player -> player.number == nextPlayerNumber)
+                .findFirst()
+                .orElseThrow();
     }
 
     private boolean didPlayerWin() {
