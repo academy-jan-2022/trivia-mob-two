@@ -2,6 +2,8 @@ package com.adaptionsoft.games.uglytrivia;
 
 import java.util.*;
 
+import static com.adaptionsoft.games.uglytrivia.Game.Category.*;
+
 
 public class Game {
 
@@ -60,7 +62,7 @@ public class Game {
         currentPlayer.place = findNextPlace(roll);
 
         System.out.println(currentPlayer.name + "'s new location is " + currentPlayer.place);
-        System.out.println("The category is " + currentCategory());
+        System.out.println("The category is " + currentCategory().value);
     }
 
     private int findNextPlace(int roll) {
@@ -68,12 +70,11 @@ public class Game {
     }
 
 
-
-    private String currentCategory() {
-        if (categoryTurn() == 0) return "Pop";
-        if (categoryTurn() == 1) return "Science";
-        if (categoryTurn() == 2) return "Sports";
-        return "Rock";
+    private Category currentCategory() {
+        if (categoryTurn() == 0) return POP;
+        if (categoryTurn() == 1) return SCIENCE;
+        if (categoryTurn() == 2) return SPORTS;
+        return ROCK;
     }
 
     private int categoryTurn() {
@@ -119,5 +120,16 @@ public class Game {
 
     private boolean didPlayerWin() {
         return currentPlayer.purse != 6;
+    }
+
+    public enum Category {
+        POP("Pop"), SCIENCE("Science"), SPORTS("Sports"), ROCK("Rock");
+
+        private final String value;
+
+        Category(String value) {
+            this.value = value;
+        }
+
     }
 }

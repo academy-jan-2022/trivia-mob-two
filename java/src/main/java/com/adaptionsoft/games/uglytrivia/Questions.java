@@ -1,11 +1,15 @@
 package com.adaptionsoft.games.uglytrivia;
 
+import com.adaptionsoft.games.uglytrivia.Game.Category;
+
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Map;
 
+import static com.adaptionsoft.games.uglytrivia.Game.Category.*;
+
 public class Questions {
-    private final Map<String, LinkedList<String>> questionMap;
+    private final Map<Category, LinkedList<String>> questionMap;
 
     public Questions() {
         LinkedList<String> popQuestions = new LinkedList<>();
@@ -20,13 +24,13 @@ public class Questions {
             rockQuestions.addLast("Rock Question " + i);
         }
         questionMap = new Hashtable<>();
-        questionMap.put("Pop", popQuestions);
-        questionMap.put("Science", scienceQuestions);
-        questionMap.put("Sports", sportsQuestions);
-        questionMap.put("Rock", rockQuestions);
+        questionMap.put(POP, popQuestions);
+        questionMap.put(SCIENCE, scienceQuestions);
+        questionMap.put(SPORTS, sportsQuestions);
+        questionMap.put(ROCK, rockQuestions);
     }
 
-    public String ask(String category) {
-		return questionMap.get(category).removeFirst();
+    public String ask(Category category) {
+        return questionMap.get(category).removeFirst();
     }
 }
