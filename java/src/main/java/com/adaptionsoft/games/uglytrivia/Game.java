@@ -111,29 +111,34 @@ public class Game {
         if (inPenaltyBox[currentPlayer]) {
             boolean winner = true;
             if (isGettingOutOfPenaltyBox) {
-                String correctAnswerText = "Answer was correct!!!!";
-                System.out.println(correctAnswerText);
-                purses[currentPlayer]++;
-                System.out.println(players.get(currentPlayer)
-                        + " now has "
-                        + purses[currentPlayer]
-                        + " Gold Coins.");
-                winner = didPlayerWin();
+                correctAnswer("Answer was correct!!!!");
             }
-            currentPlayer++;
-            resetCurrentPlayer();
+            currentPlayer = nextPlayer();
             return winner;
         }
-        System.out.println("Answer was corrent!!!!");
+        correctAnswer("Answer was corrent!!!!");
+
+
+        currentPlayer = nextPlayer();
+        return didPlayerWin();
+    }
+
+    private void correctAnswer(String message) {
+        System.out.println(message);
         purses[currentPlayer]++;
         System.out.println(players.get(currentPlayer)
                 + " now has "
                 + purses[currentPlayer]
                 + " Gold Coins.");
+    }
 
-        currentPlayer++;
-        resetCurrentPlayer();
-        return didPlayerWin();
+    private void ssdfsdfsd() {
+        purses[currentPlayer]++;
+        System.out.println(players.get(currentPlayer)
+                + " now has "
+                + purses[currentPlayer]
+                + " Gold Coins.");
+        currentPlayer = nextPlayer();
     }
 
     public boolean wrongAnswer() {
@@ -141,17 +146,16 @@ public class Game {
         System.out.println(wrongAnswerText);
         System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
         inPenaltyBox[currentPlayer] = true;
-        currentPlayer++;
-        resetCurrentPlayer();
+        currentPlayer = nextPlayer();
         return true;
     }
 
-    private void resetCurrentPlayer() {
-        if (currentPlayer == players.size()) currentPlayer = 0;
+    private int nextPlayer() {
+        return (currentPlayer + 1) % players.size();
     }
 
 
     private boolean didPlayerWin() {
-        return !(purses[currentPlayer] == 6);
+        return purses[currentPlayer] != 6;
     }
 }
