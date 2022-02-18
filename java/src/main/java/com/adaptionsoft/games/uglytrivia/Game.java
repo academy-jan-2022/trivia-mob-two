@@ -35,7 +35,7 @@ public class Game {
             attemptToGetOut(roll);
         } else {
             movePlayer(roll);
-            questions.ask(currentCategory());
+            System.out.println(questions.ask(currentCategory()));
         }
 
     }
@@ -45,7 +45,7 @@ public class Game {
             isGettingOutOfPenaltyBox = true;
             System.out.println(currentPlayer.name + " is getting out of the penalty box");
             movePlayer(roll);
-            questions.ask(currentCategory());
+            System.out.println(questions.ask(currentCategory()));
         } else {
             System.out.println(currentPlayer.name + " is not getting out of the penalty box");
             isGettingOutOfPenaltyBox = false;
