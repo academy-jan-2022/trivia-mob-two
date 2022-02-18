@@ -1,19 +1,42 @@
 package com.adaptionsoft.games.uglytrivia;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 public class Game {
 
+    public class Questions {
+        Hashtable<String, LinkedList<String>> questions;
+
+        public Questions() {
+
+            LinkedList<String> popQuestions = new LinkedList<>();
+            LinkedList<String> scienceQuestions = new LinkedList<>();
+            LinkedList<String> sportsQuestions = new LinkedList<>();
+            LinkedList<String> rockQuestions = new LinkedList<>();
+            for (int i = 0; i < 50; i++) {
+                popQuestions.addLast("Pop Question " + i);
+                scienceQuestions.addLast(("Science Question " + i));
+                sportsQuestions.addLast(("Sports Question " + i));
+                rockQuestions.addLast("Rock Question " + i);
+            }
+            questions = new Hashtable<>();
+            questions.put("Pop", popQuestions);
+            questions.put("Science", scienceQuestions);
+            questions.put("Sports", sportsQuestions);
+            questions.put("Rock", rockQuestions);
+        }
+    }
+
+    Questions questions = new Questions();
+
     public static final int MAX_PLACES = 12;
     List<Player> players = new ArrayList<>();
 
-    LinkedList<String> popQuestions = new LinkedList<>();
-    LinkedList<String> scienceQuestions = new LinkedList<>();
-    LinkedList<String> sportsQuestions = new LinkedList<>();
-    LinkedList<String> rockQuestions = new LinkedList<>();
+//    LinkedList<String> popQuestions = new LinkedList<>();
+//    LinkedList<String> scienceQuestions = new LinkedList<>();
+//    LinkedList<String> sportsQuestions = new LinkedList<>();
+//    LinkedList<String> rockQuestions = new LinkedList<>();
 
     int currentPlayerIndex = 0;
     Player currentPlayer;
@@ -21,21 +44,15 @@ public class Game {
     boolean isGettingOutOfPenaltyBox;
 
     public Game() {
-        for (int i = 0; i < 50; i++) {
-            popQuestions.addLast("Pop Question " + i);
-            scienceQuestions.addLast(("Science Question " + i));
-            sportsQuestions.addLast(("Sports Question " + i));
-            rockQuestions.addLast("Rock Question " + i);
-        }
+
     }
 
-    public boolean add(String playerName) {
+    public void add(String playerName) {
         Player newPlayer = new Player(playerName);
         players.add(newPlayer);
 
         System.out.println(playerName + " was added");
         System.out.println("They are player number " + players.size());
-        return true;
     }
 
     public int howManyPlayers() {
@@ -85,13 +102,13 @@ public class Game {
 
     private void askQuestion() {
         if (currentCategory().equals("Pop"))
-            System.out.println(popQuestions.removeFirst());
+            System.out.println(questions.questions.get("Pop").removeFirst());
         if (currentCategory().equals("Science"))
-            System.out.println(scienceQuestions.removeFirst());
+            System.out.println(questions.questions.get("Science").removeFirst());
         if (currentCategory().equals("Sports"))
-            System.out.println(sportsQuestions.removeFirst());
+            System.out.println(questions.questions.get("Sports").removeFirst());
         if (currentCategory().equals("Rock"))
-            System.out.println(rockQuestions.removeFirst());
+            System.out.println(questions.questions.get("Rock").removeFirst());
     }
 
 
