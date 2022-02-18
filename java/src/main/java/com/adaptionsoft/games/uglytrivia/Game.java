@@ -82,14 +82,12 @@ public class Game {
     }
 
     public boolean wasCorrectlyAnswered() {
+        if ( currentPlayer.inPenaltyBox && isGettingOutOfPenaltyBox) {
+            correctAnswer("Answer was correct!!!!");
+        }
         if (currentPlayer.inPenaltyBox) {
-            boolean winner = true;
-            if (isGettingOutOfPenaltyBox) {
-                correctAnswer("Answer was correct!!!!");
-                winner = didPlayerWin();
-            }
             nextPlayer();
-            return winner;
+            return true;
         }
         correctAnswer("Answer was corrent!!!!");
         nextPlayer();
