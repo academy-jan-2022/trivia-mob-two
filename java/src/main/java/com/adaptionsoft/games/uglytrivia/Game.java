@@ -4,12 +4,19 @@ import java.util.*;
 
 
 public class Game {
+
     public static final int MAX_PLACES = 12;
-    Questions questions = new Questions();
-    List<Player> players = new ArrayList<>();
-    int currentPlayerIndex = 0;
+    int currentPlayerIndex;
+    Questions questions;
+    List<Player> players;
     Player currentPlayer;
     boolean isGettingOutOfPenaltyBox;
+
+    public Game() {
+        this.currentPlayerIndex = 0;
+        this.questions = new Questions();
+        this.players = new ArrayList<>();
+    }
 
     public void add(String playerName) {
         Player newPlayer = new Player(playerName);
@@ -17,10 +24,6 @@ public class Game {
 
         System.out.println(playerName + " was added");
         System.out.println("They are player number " + players.size());
-    }
-
-    public int howManyPlayers() {
-        return players.size();
     }
 
     public void roll(int roll) {
