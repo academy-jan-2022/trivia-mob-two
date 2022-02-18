@@ -100,8 +100,6 @@ public class Game {
             return winner;
         }
         correctAnswer("Answer was corrent!!!!");
-
-
         currentPlayerIndex = nextPlayer();
         return didPlayerWin();
     }
