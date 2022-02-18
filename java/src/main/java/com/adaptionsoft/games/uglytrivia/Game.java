@@ -113,29 +113,21 @@ public class Game {
 
 	public boolean wasCorrectlyAnswered() {
 		if (inPenaltyBox[currentPlayer]){
+			boolean winner = true;
 			if (isGettingOutOfPenaltyBox) {
-				System.out.println("Answer was correct!!!!");
+				String correctAnswerText = "Answer was correct!!!!";
+				System.out.println(correctAnswerText);
 				purses[currentPlayer]++;
 				System.out.println(players.get(currentPlayer) 
 						+ " now has "
 						+ purses[currentPlayer]
 						+ " Gold Coins.");
-				
-				boolean winner = didPlayerWin();
-				currentPlayer ++;
-				resetCurrentPlayer();
-
-				return winner;
-			} else {
-				currentPlayer ++;
-				resetCurrentPlayer();
-				return true;
+				winner = didPlayerWin();
 			}
-			
-			
-			
-		} else {
-		
+				currentPlayer ++;
+				resetCurrentPlayer();
+				return winner;
+		}
 			System.out.println("Answer was corrent!!!!");
 			purses[currentPlayer]++;
 			System.out.println(players.get(currentPlayer) 
@@ -147,7 +139,6 @@ public class Game {
 			resetCurrentPlayer();
 
 			return didPlayerWin();
-		}
 	}
 	
 	public boolean wrongAnswer(){
