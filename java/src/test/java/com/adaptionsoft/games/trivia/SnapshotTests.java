@@ -31,7 +31,6 @@ public class SnapshotTests {
         aGame.add("Pat");
         aGame.add("Sue");
 
-
         File rollResult = new File("src/test/java/com/adaptionsoft/games/trivia/snapshots/" + fileFolder + "/csv.txt");
 
         Scanner rollInput = new Scanner(rollResult);
