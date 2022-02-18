@@ -8,10 +8,10 @@ import static com.adaptionsoft.games.uglytrivia.Game.Category.*;
 public class Game {
 
     public static final int MAX_PLACES = 12;
-    int currentPlayerIndex;
     Questions questions;
     List<Player> players;
     Player currentPlayer;
+    int currentPlayerIndex;
     boolean isGettingOutOfPenaltyBox;
 
     public Game() {
@@ -24,20 +24,24 @@ public class Game {
         Player newPlayer = new Player(playerName);
         players.add(newPlayer);
 
-        System.out.println(playerName + " was added");
-        System.out.println("They are player number " + players.size());
+        System.out.println(
+                Messages.GetPlayerAdded(playerName, players.size())
+        );
     }
 
     public void roll(int roll) {
         currentPlayer = players.get(currentPlayerIndex);
-        System.out.println(currentPlayer.name + " is the current player");
-        System.out.println("They have rolled a " + roll);
+        System.out.println(
+                Messages.GetPlayerRolled(currentPlayer.name, roll)
+        );
 
         if (currentPlayer.inPenaltyBox) {
             attemptToGetOut(roll);
         } else {
             movePlayer(roll);
-            System.out.println(questions.ask(currentCategory()));
+            System.out.println(
+                    questions.ask(currentCategory())
+            );
         }
 
     }
@@ -45,11 +49,17 @@ public class Game {
     private void attemptToGetOut(int roll) {
         if (isOdd(roll)) {
             isGettingOutOfPenaltyBox = true;
-            System.out.println(currentPlayer.name + " is getting out of the penalty box");
+            System.out.println(
+                    Messages.GetOutOfPenalty(currentPlayer.name)
+            );
             movePlayer(roll);
-            System.out.println(questions.ask(currentCategory()));
+            System.out.println(
+                    questions.ask(currentCategory())
+            );
         } else {
-            System.out.println(currentPlayer.name + " is not getting out of the penalty box");
+            System.out.println(
+                    Messages.GetNotOutOfPenalty(currentPlayer.name)
+            );
             isGettingOutOfPenaltyBox = false;
         }
     }
@@ -61,8 +71,9 @@ public class Game {
     private void movePlayer(int roll) {
         currentPlayer.place = findNextPlace(roll);
 
-        System.out.println(currentPlayer.name + "'s new location is " + currentPlayer.place);
-        System.out.println("The category is " + currentCategory().value);
+        System.out.println(
+                Messages.GetPlayerMoved(currentPlayer.name, currentPlayer.place, currentCategory().value)
+        );
     }
 
     private int findNextPlace(int roll) {
@@ -82,8 +93,12 @@ public class Game {
     }
 
     public boolean wasCorrectlyAnswered() {
-        if ( currentPlayer.inPenaltyBox && isGettingOutOfPenaltyBox) {
-            correctAnswer("Answer was correct!!!!");
+        if (currentPlayer.inPenaltyBox && isGettingOutOfPenaltyBox) {
+            currentPlayer.purse++;
+
+            System.out.println(
+                    Messages.GetCorrectAnswer(currentPlayer.name, currentPlayer.purse)
+            );
         }
         if (currentPlayer.inPenaltyBox) {
             nextPlayer();
@@ -104,8 +119,9 @@ public class Game {
     }
 
     public boolean wrongAnswer() {
-        System.out.println("Question was incorrectly answered");
-        System.out.println(currentPlayer.name + " was sent to the penalty box");
+        System.out.println(
+                Messages.GetIncorrectAnswer(currentPlayer.name)
+        );
         currentPlayer.inPenaltyBox = true;
         nextPlayer();
         return true;
