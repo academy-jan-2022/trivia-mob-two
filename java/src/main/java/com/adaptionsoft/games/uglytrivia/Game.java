@@ -142,17 +142,17 @@ public class Game {
 					+ " now has "
 					+ purses[currentPlayer]
 					+ " Gold Coins.");
-			
-			boolean winner = didPlayerWin();
+
 			currentPlayer++;
 			if (currentPlayer == players.size()) currentPlayer = 0;
 			
-			return winner;
+			return didPlayerWin();
 		}
 	}
 	
 	public boolean wrongAnswer(){
-		System.out.println("Question was incorrectly answered");
+		String wrongAnswerText = "Question was incorrectly answered";
+		System.out.println(wrongAnswerText);
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
 		inPenaltyBox[currentPlayer] = true;
 		
