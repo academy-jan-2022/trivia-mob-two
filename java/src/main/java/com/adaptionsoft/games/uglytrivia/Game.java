@@ -35,7 +35,7 @@ public class Game {
             attemptToGetOut(roll);
         } else {
             movePlayer(roll);
-            askQuestion();
+            questions.ask(currentCategory());
         }
 
     }
@@ -45,7 +45,7 @@ public class Game {
             isGettingOutOfPenaltyBox = true;
             System.out.println(currentPlayer.name + " is getting out of the penalty box");
             movePlayer(roll);
-            askQuestion();
+            questions.ask(currentCategory());
         } else {
             System.out.println(currentPlayer.name + " is not getting out of the penalty box");
             isGettingOutOfPenaltyBox = false;
@@ -67,16 +67,7 @@ public class Game {
         return (currentPlayer.place + roll) % MAX_PLACES;
     }
 
-    private void askQuestion() {
-        if (currentCategory().equals("Pop"))
-            System.out.println(questions.questions.get("Pop").removeFirst());
-        if (currentCategory().equals("Science"))
-            System.out.println(questions.questions.get("Science").removeFirst());
-        if (currentCategory().equals("Sports"))
-            System.out.println(questions.questions.get("Sports").removeFirst());
-        if (currentCategory().equals("Rock"))
-            System.out.println(questions.questions.get("Rock").removeFirst());
-    }
+
 
     private String currentCategory() {
         if (categoryTurn() == 0) return "Pop";
