@@ -88,11 +88,11 @@ public class Game {
                 correctAnswer("Answer was correct!!!!");
                 winner = didPlayerWin();
             }
-            currentPlayerIndex = nextPlayer();
+            nextPlayer();
             return winner;
         }
         correctAnswer("Answer was corrent!!!!");
-        currentPlayerIndex = nextPlayer();
+        nextPlayer();
         return didPlayerWin();
     }
 
@@ -106,16 +106,15 @@ public class Game {
     }
 
     public boolean wrongAnswer() {
-        String wrongAnswerText = "Question was incorrectly answered";
-        System.out.println(wrongAnswerText);
+        System.out.println("Question was incorrectly answered");
         System.out.println(currentPlayer.name + " was sent to the penalty box");
         currentPlayer.inPenaltyBox = true;
-        currentPlayerIndex = nextPlayer();
+        nextPlayer();
         return true;
     }
 
-    private int nextPlayer() {
-        return (currentPlayerIndex + 1) % players.size();
+    private void nextPlayer() {
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
     }
 
     private boolean didPlayerWin() {
