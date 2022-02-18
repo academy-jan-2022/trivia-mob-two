@@ -137,7 +137,6 @@ public class Game {
 
 			currentPlayer ++;
 			resetCurrentPlayer();
-
 			return didPlayerWin();
 	}
 	
